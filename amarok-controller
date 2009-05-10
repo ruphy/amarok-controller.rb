@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'korundum4'
+
+about = KDE::AboutData.new("amarok-controller.rb", "Amarok Controller", KDE.ki18n("An amarok controller for local networks"), "0.1")
+KDE::CmdLineArgs.init(ARGV, about)
+a = KDE::Application.new
+w = Qt::Widget.new
+
+play = Qt::PushButton.new "Play", w
+pause = Qt::PushButton.new "Pause", w
+stop = Qt::PushButton.new "Stop", w
+next_song = Qt::PushButton.new "Next", w
+previous_song = Qt::PushButton.new "Previous", w
+buttons_layout = Qt::HBoxLayout.new
+buttons_layout.add_widget play
+buttons_layout.add_widget pause
+buttons_layout.add_widget stop
+buttons_layout.add_widget next_song
+buttons_layout.add_widget previous_song
+greet_label = Qt::Label.new "Welcome, this is amarok controller, by ruphy"
+host = Qt::LineEdit.new "server address..."
+layout = Qt::VBoxLayout.new
+layout.add_widget greet_label
+layout.add_widget host
+layout.add_item buttons_layout
+
+w.layout = layout
+
+w.show
+a.exec
+
