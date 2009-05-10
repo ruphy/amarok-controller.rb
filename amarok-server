@@ -9,11 +9,5 @@ class Controller
   end
 end
 
-about = KDE::AboutData.new("amarok-controller.rb", "Amarok Controller (server)", KDE.ki18n("An amarok controller for local networks"), "0.1")
-KDE::CmdLineArgs.init(ARGV, about)
-a = KDE::Application.new
-
-DRb.start_service "druby://192.168.0.106:20000", Controller.new
+DRb.start_service "druby://:42423", Controller.new
 DRb.thread.join
-
-a.exec
