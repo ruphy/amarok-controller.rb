@@ -1,6 +1,14 @@
 #!/usr/bin/env ruby
 
+host_default = "192.168.0.181"
+
 require 'korundum4'
+require 'drb'
+
+def send_signal type
+  
+end
+
 
 about = KDE::AboutData.new("amarok-controller.rb", "Amarok Controller", KDE.ki18n("An amarok controller for local networks"), "0.1")
 KDE::CmdLineArgs.init(ARGV, about)
@@ -19,7 +27,7 @@ buttons_layout.add_widget stop
 buttons_layout.add_widget next_song
 buttons_layout.add_widget previous_song
 greet_label = Qt::Label.new "Welcome, this is amarok controller, by ruphy"
-host = Qt::LineEdit.new "server address..."
+host = Qt::LineEdit.new "#{host_default}"
 layout = Qt::VBoxLayout.new
 layout.add_widget greet_label
 layout.add_widget host
@@ -27,6 +35,10 @@ layout.add_item buttons_layout
 
 w.layout = layout
 
+play.connect(SIGNAL :clicked) {
+  cc = DRbObject.new(nil, "druby://192.168.0.181:20000")
+  cc.play
+  }
+
 w.show
 a.exec
-
