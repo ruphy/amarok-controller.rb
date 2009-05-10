@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'korundum4'
+
+about = KDE::AboutData.new("amarok-controller.rb", "Amarok Controller (server)", KDE.ki18n("An amarok controller for local networks"), "0.1")
+KDE::CmdLineArgs.init(ARGV, about)
+a = KDE::Application.new
+
+
+a.exec
