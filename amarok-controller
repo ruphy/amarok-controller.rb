@@ -5,10 +5,10 @@ host_default = "192.168.0.181"
 require 'korundum4'
 require 'drb'
 
-def send_signal type
-  
+def send_signal name
+  cc = DRbObject.new(nil, "druby://192.168.0.181:42423")
+  cc.send_command name
 end
-
 
 about = KDE::AboutData.new("amarok-controller.rb", "Amarok Controller", KDE.ki18n("An amarok controller for local networks"), "0.1")
 KDE::CmdLineArgs.init(ARGV, about)
@@ -35,10 +35,11 @@ layout.add_item buttons_layout
 
 w.layout = layout
 
-play.connect(SIGNAL :clicked) {
-  cc = DRbObject.new(nil, "druby://192.168.0.181:42423")
-  cc.send_command "Play"
-  }
+play.connect(SIGNAL :clicked) { send_signal "Play" }
+pause.connect(SIGNAL :clicked) { send_signal "Pause" }
+stop.connect(SIGNAL :clicked) { send_signal "Stop" }
+next_song.connect(SIGNAL :clicked) { send_signal "Next" }
+previous_song.connect(SIGNAL :clicked) { send_signal "Prev" }
 
 w.show
 a.exec
