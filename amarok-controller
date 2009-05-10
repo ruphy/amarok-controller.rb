@@ -37,7 +37,7 @@ w.layout = layout
 
 play.connect(SIGNAL :clicked) {
   cc = DRbObject.new(nil, "druby://192.168.0.181:42423")
-  cc.play
+  cc.send_command "Play"
   }
 
 w.show

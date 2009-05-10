@@ -3,7 +3,7 @@
 require 'drb'
 
 class Controller
-  def send command
+  def send_command command
     system("qdbus org.kde.amarok /Player org.freedesktop.MediaPlayer.#{command} > /dev/null")
   end
 end
