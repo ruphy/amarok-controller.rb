@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'korundum4'
 require 'drb'
 
 class Controller
-  def play
-    puts "play"
+  def send command
+    system("qdbus org.kde.amarok /Player org.freedesktop.MediaPlayer.#{command} > /dev/null")
   end
 end
 
